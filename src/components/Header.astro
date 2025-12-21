@@ -1,0 +1,113 @@
+---
+---
+
+<header class="bg-[#1a1a1a] py-4 px-6 fixed top-0 w-full z-50 flex justify-between items-center border-b border-white/10">
+    <a href="/" class="block">
+      <!-- Logo Placeholder -->
+      <img src="/logo.png" alt="Pachamama Milano" class="h-14 md:h-16 w-auto" onerror="this.src='https://placehold.co/150x50/black/gold?text=PACHAMAMA'"/>
+    </a>
+  
+    <!-- Horizontal Navigation - Professional & Clean (Desktop) -->
+    <nav class="hidden md:flex flex-wrap items-center justify-center gap-8">
+        <!-- 0. HOME -->
+        <a href="/" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest text-shadow-sm">
+            Home
+        </a>
+        <!-- 1. CHI SIAMO -->
+        <a href="/chi-siamo" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest text-shadow-sm">
+            Chi Siamo
+        </a>
+
+        <!-- 2. GALLERY -->
+        <a href="/gallery" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest text-shadow-sm">
+            Gallery
+        </a>
+
+        <!-- 3. PRENOTA -->
+        <a href="/prenota" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest flex items-center gap-2 text-shadow-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5 21V3H19V21L12 18L5 21Z" /></svg>
+             Prenota
+        </a>
+
+        <!-- 4. GIFTCARD -->
+        <a href="/gift-card" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest flex items-center gap-2 text-shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20 10V21H4V10H2V8H22V10H20ZM18 12H6V19H18V12ZM9 6H15C15 4.34315 13.6569 3 12 3C10.3431 3 9 4.34315 9 6ZM7 6H5V4H7C7 2 9 0 12 0C15 0 17 2 17 4H19V6H17C17 7.28 16.65 8.46 16.05 9.5H7.95C7.35 8.46 7 7.28 7 6Z"/></svg>
+            Gift Card
+        </a>
+
+        <!-- 5. FOOD -->
+        <!-- 5. FOOD -->
+        <a href="https://drive.google.com/file/d/1wiAKFkQrQeHpsyeKyM0Yoo6uVNl5SqIy/view" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest flex items-center gap-2 text-shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C16.4183 2 20 5.58172 20 10C20 14 17.0294 17.3137 13.1716 17.911V22H10.8284V17.911C6.97056 17.3137 4 14 4 10C4 5.58172 7.58172 2 12 2ZM6 10C6 13.3137 8.68629 16 12 16C15.3137 16 18 13.3137 18 10C18 9.5 17.93 9.02 17.8 8.56C17.06 9.46 15.93 10 14.68 10C12.4709 10 10.68 8.20914 10.68 6C10.68 5.75 10.71 5.51 10.76 5.28C8.04 6.2 6 8.9 6 12V10Z"/></svg>
+            Food
+        </a>
+
+        <!-- 6. BAR -->
+        <!-- 6. BAR -->
+        <a href="https://drive.google.com/file/d/1Ispo7H0L3CRMUnzbW5yFJHi4JD0mnImn/view" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gold transition-colors font-display text-xl uppercase tracking-widest flex items-center gap-2 text-shadow-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M11 19V21H13V19H11ZM7.5 3L5.5 5H18.5L16.5 3H7.5ZM5.79 3H2.21L4.21 5H5.79L5.79 3ZM18.21 5L20.21 3H21.79L19.79 5H18.21ZM5.5 7V13C5.5 16.59 8.41 19.5 12 19.5C15.59 19.5 18.5 16.59 18.5 13V7H5.5Z"/></svg>
+             Bar
+        </a>
+    </nav>
+
+    <!-- Mobile Menu Toggle Button -->
+    <button id="menu-toggle" class="md:hidden text-white hover:text-gold focus:outline-none z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+</header>
+
+<!-- Mobile Menu Overlay (Professional Style) -->
+<div id="mobile-menu" class="fixed inset-0 bg-[#1a1a1a] z-40 hidden flex flex-col items-center justify-center text-white transition-opacity duration-300">
+    <!-- Close Button -->
+    <button id="menu-close" class="absolute top-6 right-6 text-white text-5xl hover:text-gold focus:outline-none">&times;</button>
+    
+    <nav class="flex flex-col gap-8 text-center">
+        <a href="/" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors">Home</a>
+        <a href="/chi-siamo" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors">Chi Siamo</a>
+        <a href="/gallery" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors">Gallery</a>
+        
+        <a href="/prenota" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors flex items-center justify-center gap-3">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M5 21V3H19V21L12 18L5 21Z" /></svg>
+             Prenota
+        </a>
+        
+        <a href="/gift-card" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors flex items-center justify-center gap-3">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20 10V21H4V10H2V8H22V10H20ZM18 12H6V19H18V12ZM9 6H15C15 4.34315 13.6569 3 12 3C10.3431 3 9 4.34315 9 6ZM7 6H5V4H7C7 2 9 0 12 0C15 0 17 2 17 4H19V6H17C17 7.28 16.65 8.46 16.05 9.5H7.95C7.35 8.46 7 7.28 7 6Z"/></svg>
+             Gift Card
+        </a>
+        
+        <a href="https://drive.google.com/file/d/1wiAKFkQrQeHpsyeKyM0Yoo6uVNl5SqIy/view" target="_blank" rel="noopener noreferrer" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors flex items-center justify-center gap-3">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C16.4183 2 20 5.58172 20 10C20 14 17.0294 17.3137 13.1716 17.911V22H10.8284V17.911C6.97056 17.3137 4 14 4 10C4 5.58172 7.58172 2 12 2ZM6 10C6 13.3137 8.68629 16 12 16C15.3137 16 18 13.3137 18 10C18 9.5 17.93 9.02 17.8 8.56C17.06 9.46 15.93 10 14.68 10C12.4709 10 10.68 8.20914 10.68 6C10.68 5.75 10.71 5.51 10.76 5.28C8.04 6.2 6 8.9 6 12V10Z"/></svg>
+             Food
+        </a>
+        
+        <a href="https://drive.google.com/file/d/1Ispo7H0L3CRMUnzbW5yFJHi4JD0mnImn/view" target="_blank" rel="noopener noreferrer" class="text-3xl font-display uppercase tracking-widest text-white hover:text-gold transition-colors flex items-center justify-center gap-3">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M11 19V21H13V19H11ZM7.5 3L5.5 5H18.5L16.5 3H7.5ZM5.79 3H2.21L4.21 5H5.79L5.79 3ZM18.21 5L20.21 3H21.79L19.79 5H18.21ZM5.5 7V13C5.5 16.59 8.41 19.5 12 19.5C15.59 19.5 18.5 16.59 18.5 13V7H5.5Z"/></svg>
+             Bar
+        </a>
+    </nav>
+</div>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+    });
+
+    menuClose?.addEventListener('click', () => {
+        mobileMenu?.classList.add('hidden');
+    });
+
+    // Close menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu?.classList.add('hidden');
+        });
+    });
+</script>

@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SectionPattern from '../components/SectionPattern.astro';
+
+const title = "Menu | Pachamama Milano";
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main class="bg-white text-black pt-32 pb-24">
+    <div class="container mx-auto px-4 max-w-4xl text-center">
+        <span class="text-gold uppercase tracking-widest text-sm font-bold">La Nostra Proposta</span>
+        <h1 class="text-5xl md:text-6xl font-display font-bold uppercase mb-12">Il Nostro Menu</h1>
+        
+        <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
+            Un viaggio attraverso i sapori del Perù, reinterpretati in chiave moderna. 
+            Utilizziamo solo ingredienti freschissimi e di alta qualità.
+        </p>
+    </div>
+
+    <SectionPattern />
+
+    <div class="container mx-auto px-4 max-w-4xl mt-16">
+        
+        <!-- Category: ANTIPASTI -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-display font-bold uppercase mb-8 text-center border-b border-gold/30 pb-4">Antipasti / Entradas</h2>
+            <div class="grid gap-8">
+                <!-- Item 1 -->
+                <div class="flex justify-between items-baseline group hover:bg-neutral-50 p-4 rounded-lg transition-colors">
+                    <div class="text-left">
+                        <h3 class="font-bold text-xl uppercase mb-1 group-hover:text-gold transition-colors">Ceviche Clasico</h3>
+                        <p class="text-gray-500 text-sm italic">Pesce fresco marinato in leche de tigre, mais, patata dolce</p>
+                    </div>
+                    <div class="text-xl font-bold ml-4">€ 22</div>
+                </div>
+                 <!-- Item 2 -->
+                 <div class="flex justify-between items-baseline group hover:bg-neutral-50 p-4 rounded-lg transition-colors">
+                    <div class="text-left">
+                        <h3 class="font-bold text-xl uppercase mb-1 group-hover:text-gold transition-colors">Tiradito Nikkei</h3>
+                        <p class="text-gray-500 text-sm italic">Sashimi di ricciola, salsa ponzu, avocado, sesamo</p>
+                    </div>
+                    <div class="text-xl font-bold ml-4">€ 24</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category: PRIMI -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-display font-bold uppercase mb-8 text-center border-b border-gold/30 pb-4">Primi Piatti / Principales</h2>
+             <div class="grid gap-8">
+                <!-- Item 1 -->
+                <div class="flex justify-between items-baseline group hover:bg-neutral-50 p-4 rounded-lg transition-colors">
+                    <div class="text-left">
+                        <h3 class="font-bold text-xl uppercase mb-1 group-hover:text-gold transition-colors">Arroz con Mariscos</h3>
+                        <p class="text-gray-500 text-sm italic">Riso al salto con frutti di mare, salsa madre, piselli</p>
+                    </div>
+                    <div class="text-xl font-bold ml-4">€ 26</div>
+                </div>
+                 <!-- Item 2 -->
+                 <div class="flex justify-between items-baseline group hover:bg-neutral-50 p-4 rounded-lg transition-colors">
+                    <div class="text-left">
+                        <h3 class="font-bold text-xl uppercase mb-1 group-hover:text-gold transition-colors">Lomo Saltado</h3>
+                        <p class="text-gray-500 text-sm italic">Filetto di manzo saltato al wok, cipolla, pomodoro, patate fritte</p>
+                    </div>
+                    <div class="text-xl font-bold ml-4">€ 28</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 bg-neutral-100 p-8 rounded-lg">
+            <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Hai allergie o intolleranze?</p>
+            <p class="text-gray-700">Chiedi al nostro personale per la lista degli allergeni.</p>
+        </div>
+
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

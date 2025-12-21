@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import SectionPattern from '../components/SectionPattern.astro';
+import Carousel from '../components/Carousel.astro';
+
+const dishesImages = [
+  '/images/menu/piato.jpg',
+  '/images/menu/piato2.jpg',
+  '/images/menu/piato3.jpg',
+  '/images/menu/piato4.jpg',
+  '/images/menu/piato5.jpg'
+];
+
+const cocktailsImages = [
+  '/images/menu/coctail1.jpg',
+  '/images/menu/coctail2.jpg',
+  '/images/menu/coctail3.jpg',
+  '/images/menu/coctail4.jpg'
+];
+
+const title = "Pachamama Milano | Cucina Novoandina";
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main>
+    <!-- 1. Gift Card Section -->
+    <section class="bg-white text-black py-20 px-4 md:px-12 pt-32 relative z-10">
+        <div class="container mx-auto max-w-6xl flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2 text-left">
+                <h2 class="text-5xl md:text-6xl font-display font-bold mb-4 uppercase tracking-normal leading-none">Regala il <br/><span class="text-black">Meglio</span></h2>
+                <p class="text-gray-800 mb-6 font-light leading-relaxed text-lg">
+                    Regala un pranzo o una cena a una persona speciale con una Gift Card Pachamama. Offri molto più di un semplice pasto: dona un viaggio sensoriale attraverso i sapori autentici della cucina novoandina.
+                </p>
+                <div class="flex gap-4 items-center">
+                    <Button href="/gift-card" variant="secondary">Compralo ora</Button>
+                    <a href="#" class="border-b border-black text-xs uppercase tracking-widest font-bold hover:text-gold hover:border-gold transition-colors">Scopri di più</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative group">
+                <!-- Gift Card Image - Clean (No shadow/background for transparency) -->
+                <div class="relative hover:scale-105 transition-transform duration-500">
+                    <img src="/images/home/gift-card.webp" alt="Gift Card Pachamama" class="w-full h-auto object-contain" onerror="this.src='https://placehold.co/600x400/eee/333?text=Gift+Card+Preview'"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Hero Section (Interior) -->
+    <section class="relative min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/images/home/interior-1.jpg');">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/40"></div>
+        
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-7xl font-display font-bold uppercase tracking-widest mb-2 text-shadow">Pachamama Milano</h1>
+            <p class="text-xl md:text-2xl font-light tracking-widest mb-8 uppercase">Il primo ristorante dedicato alla cucina novoandina</p>
+            <Button href="/prenota">Prenota un Tavolo 📞</Button>
+        </div>
+        
+        <!-- Fallback background if image missing -->
+        <div class="absolute inset-0 -z-10 bg-gray-800" id="hero-fallback"></div>
+        <script>
+            // Hide fallback if image loads (handled by CSS usually, but here just a placeholder check)
+        </script>
+    </section>
+
+    <SectionPattern />
+
+    <!-- 3. Dishes (Cucina Novoandina) -->
+    <section class="bg-white text-black pt-24 pb-8 px-4 overflow-hidden">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                 <!-- Text on Left -->
+                <div class="md:w-1/2 order-2 md:order-1">
+                    <span class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">Cucina Novoandina</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 uppercase tracking-normal text-black">- I Nostri Piatti</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        L'unica destinazione a Milano dedicata alla cucina novoandina!
+                        Pachamama offre un viaggio culinario unico, dove tradizione peruviana e innovazione si incontrano.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        La nostra passione è portare in tavola piatti che celebrano l'eredità gastronomica andina con un tocco moderno, utilizzando ingredienti freschi e sapori autentici.
+                    </p>
+                    
+
+
+
+                </div>
+
+
+
+                <!-- Image on Right (Carousel) -->
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <Carousel 
+                        images={dishesImages} 
+                        id="carousel-dishes" 
+                        aspectRatio="aspect-square md:aspect-[4/3]"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <SectionPattern />
+
+    <!-- 4. Cocktails (Risto Bar) -->
+    <section class="bg-white text-black pt-8 pb-24 px-4 overflow-hidden">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                 <!-- Image on Left (Carousel) -->
+                 <div class="md:w-1/2">
+                    <Carousel 
+                        images={cocktailsImages} 
+                        id="carousel-cocktails" 
+                        aspectRatio="aspect-square md:aspect-[3/4]"
+                    />
+                </div>
+
+                 <!-- Text on Right -->
+                <div class="md:w-1/2">
+                    <span class="bg-black text-white px-2 py-1 text-xs uppercase tracking-widest mb-4 inline-block">Risto Bar</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 uppercase tracking-normal">- I Nostri Cocktail</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Pachamama non è solo cucina, ma anche un’arte nel creare cocktail unici! Nel nostro risto-bar, l’eleganza dei cocktail d’autore si intreccia con l’autenticità peruviana.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        La nostra carta bar celebra il <strong>Pisco</strong>, il cuore della tradizione peruviana, proponendo cocktail incredibili che trasformano ogni sorso in un viaggio attraverso i colori e le emozioni andine.
+                    </p>
+                     
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Chi Siamo (Interior Parallax) -->
+    <!-- 5. Chi Siamo (Text Content) -->
+    <section class="bg-[#FBF6E6] text-black pt-12 pb-10 px-4" id="chi-siamo">
+         <div class="container mx-auto max-w-4xl text-center">
+            <span class="inline-block px-8 py-2 mb-6 text-xl tracking-widest text-[#FFD54F] bg-[#1F1F1F] font-display font-bold uppercase rounded-md shadow-lg">
+                Pachamama Milano
+            </span>
+            <h2 class="text-5xl md:text-6xl font-display font-bold mb-6 uppercase text-black">- Chi Siamo</h2>
+            <p class="text-xl md:text-2xl font-light leading-relaxed mb-0 text-gray-800">
+                Siamo il primo <strong>ristorante a Milano</strong> dedicato alla <strong>cucina novoandina</strong>! 
+                Scopri l’anima del Perù, lasciati sorprendere dai nostri sapori e vivi un’esperienza gastronomica indimenticabile!
+            </p>
+         </div>
+    </section>
+
+    <!-- 6. Interior Image (Full Width & Height, Clean) -->
+    <section class="min-h-screen relative bg-cover bg-center" style="background-image: url('/images/home/interior-1.jpg');">
+         <!-- No overlay, just the clean image -->
+    </section>
+
+  </main>
+  
+  <Footer />
+</Layout>

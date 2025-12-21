@@ -1,0 +1,99 @@
+---
+interface Props {
+  images: string[];
+  id: string;
+  aspectRatio?: string; // e.g., 'aspect-square md:aspect-[4/3]'
+}
+
+const { images, id, aspectRatio = 'aspect-square md:aspect-[4/3]' } = Astro.props;
+---
+
+<div class={`relative ${aspectRatio} overflow-hidden rounded-lg shadow-xl group`} id={id}>
+  {images.map((img, index) => (
+    <img 
+      src={img} 
+      alt={`Slide ${index + 1}`} 
+      class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+      data-index={index}
+    />
+  ))}
+</div>
+
+<!-- Indicators -->
+<div class="flex gap-2 mt-6 justify-center" id={`${id}-indicators`}>
+  {images.map((_, index) => (
+    <button 
+      class={`w-8 h-1 transition-colors duration-300 ${index === 0 ? 'bg-gold' : 'bg-gray-300 hover:bg-gray-400'}`}
+      aria-label={`Go to slide ${index + 1}`}
+      data-index={index}
+    ></button>
+  ))}
+</div>
+
+<script define:vars={{ id, intervalTime: 4000 }}>
+  const container = document.getElementById(id);
+  const indicatorsContainer = document.getElementById(`${id}-indicators`);
+  
+  if (container && indicatorsContainer) {
+    const slides = container.querySelectorAll('img');
+    const indicators = indicatorsContainer.querySelectorAll('button');
+    let currentIndex = 0;
+    let interval;
+
+    const showSlide = (index) => {
+      // Hide all/reset z-index
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.remove('opacity-0', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+        } else {
+          slide.classList.remove('opacity-100', 'z-10');
+          slide.classList.add('opacity-0', 'z-0');
+        }
+      });
+
+      // Update indicators
+      indicators.forEach((indicator, i) => {
+        if (i === index) {
+          indicator.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+          indicator.classList.add('bg-gold');
+        } else {
+          indicator.classList.add('bg-gray-300', 'hover:bg-gray-400');
+          indicator.classList.remove('bg-gold');
+        }
+      });
+
+      currentIndex = index;
+    };
+
+    const nextSlide = () => {
+      const nextIndex = (currentIndex + 1) % slides.length;
+      showSlide(nextIndex);
+    };
+
+    const startAutoPlay = () => {
+      interval = setInterval(nextSlide, intervalTime);
+    };
+
+    const stopAutoPlay = () => {
+      clearInterval(interval);
+    };
+
+    // Event Listeners for Indicators
+    indicators.forEach((indicator) => {
+      indicator.addEventListener('click', () => {
+        stopAutoPlay();
+        const index = parseInt(indicator.dataset.index);
+        showSlide(index);
+        startAutoPlay();
+      });
+    });
+
+    // Pause on hover
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    // Init
+    startAutoPlay();
+  }
+</script>

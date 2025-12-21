@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+
+const title = "Prenota | Pachamama Milano";
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative min-h-[400px] flex items-center justify-center bg-cover bg-center" style="background-image: url('/images/home/interior-1.jpg');">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/40"></div>
+        
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-8xl font-display font-bold uppercase tracking-widest text-shadow-lg">Prenota</h1>
+            <div class="w-24 h-1 bg-gold mx-auto mt-4"></div>
+        </div>
+    </section>
+
+    <!-- CONTENT: Reservation Policies -->
+    <section class="bg-white pt-8 pb-0 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <div class="prose prose-lg mx-auto text-gray-800">
+                <h3 class="text-3xl font-display font-bold uppercase text-black mb-6">Condizione generale della prenotazione</h3>
+                
+                <p class="font-medium leading-relaxed mb-2 text-gray-600">
+                    È possibile modificare una prenotazione unicamente chiamando il numero +39 328 428 1204, 
+                    entro 1 ora precedenti l’orario previsto di arrivo.
+                </p>
+
+                <p class="font-medium leading-relaxed mb-6 text-gray-600">
+                    Per disdette richiediamo gentilmente di dare un preavviso di 24 ore.
+                </p>
+
+                <p class="font-bold text-black text-lg mb-0">
+                    La prenotazione è valida fino a 15 minuti dopo l’orario concordato.
+                </p>
+            </div>
+        </div>
+
+        <!-- GoHighLevel Calendar Widget (Full Width) -->
+        <div class="container mx-auto max-w-[90%] md:max-w-7xl px-4 mt-8 mb-24 relative z-10">
+            <div class="w-full overflow-hidden rounded-xl shadow-2xl bg-white border border-gray-100">
+                <iframe 
+                    src="https://api.leadconnectorhq.com/widget/booking/kjwcMdepqipZF54G3Tsr" 
+                    style="width: 100%; border:none; min-height: 850px;" 
+                    scrolling="yes" 
+                    id="booking-calendar-iframe"
+                ></iframe>
+            </div>
+        </div>
+    </section>
+
+
+
+  </main>
+  
+  <Footer />
+</Layout>

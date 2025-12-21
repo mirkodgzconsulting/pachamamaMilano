@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SectionPattern from '../components/SectionPattern.astro';
+
+const title = "Gallery | Pachamama Milano";
+
+const dishes = [
+  '/images/menu/piato.jpg',
+  '/images/menu/piato2.jpg',
+  '/images/menu/piato3.jpg',
+  '/images/menu/piato4.jpg',
+  '/images/menu/piato5.jpg',
+  '/images/menu/piato6.jpg',
+  '/images/menu/piato7.jpg'
+];
+
+const cocktails = [
+  '/images/menu/coctail1.jpg',
+  '/images/menu/coctail2.jpg',
+  '/images/menu/coctail3.jpg',
+  '/images/menu/coctail4.jpg'
+];
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/images/home/hero-bg.jpg');">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50"></div>
+        
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-8xl font-display font-bold uppercase tracking-widest text-shadow-lg">Gallery</h1>
+            <div class="w-24 h-1 bg-gold mx-auto mt-4"></div>
+        </div>
+    </section>
+
+    <!-- CONTENT: Dishes Gallery -->
+    <section class="bg-white pt-24 pb-0 px-4">
+        <div class="container mx-auto max-w-7xl">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                 <span class="inline-block px-4 py-1 mb-4 text-sm tracking-widest text-[#FFD54F] bg-[#1F1F1F] font-display font-bold uppercase rounded-md shadow-md">
+                    La Nostra Cucina
+                </span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold uppercase text-black">I Nostri Piatti</h2>
+                <p class="text-black mt-4 font-medium max-w-2xl mx-auto">
+                    Siamo il primo ristorante a Milano dedicato alla cucina novoandina!
+                </p>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {dishes.map((img, index) => (
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                        <img 
+                            src={img} 
+                            alt={`Piatto Pachamama ${index + 1}`} 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT: Cocktails Gallery -->
+    <section class="bg-white pt-12 pb-24 px-4">
+        <div class="container mx-auto max-w-7xl">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                 <span class="inline-block px-4 py-1 mb-4 text-sm tracking-widest text-[#FFD54F] bg-[#1F1F1F] font-display font-bold uppercase rounded-md shadow-md">
+                    Il Nostro Bar
+                </span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold uppercase text-black">I Nostri Cocktails</h2>
+                 <p class="text-black mt-4 font-medium max-w-2xl mx-auto">
+                    L'arte della mixology incontra la tradizione peruviana.
+                </p>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 {cocktails.map((img, index) => (
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg cursor-pointer">
+                        <img 
+                            src={img} 
+                            alt={`Cocktail Pachamama ${index + 1}`} 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Separator -->
+    <SectionPattern />
+
+  </main>
+  
+  <Footer />
+</Layout>
