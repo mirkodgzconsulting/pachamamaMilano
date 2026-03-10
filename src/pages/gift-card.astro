@@ -1,9 +1,8 @@
-
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import SectionPattern from '../components/SectionPattern.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SectionPattern from "../components/SectionPattern.astro";
 
 const title = "Gift Card | Pachamama Milano";
 ---
@@ -12,158 +11,336 @@ const title = "Gift Card | Pachamama Milano";
   <Header />
 
   <main class="font-body text-black bg-white">
-    
     <!-- HERO SECTION -->
-    <section class="max-w-7xl mx-auto px-4 pt-32 pb-12 md:pt-44 md:pb-16 flex flex-col-reverse md:flex-row items-center gap-12">
-        <!-- Text Content -->
-        <div class="w-full md:w-1/2 text-left">
-            <h1 class="text-5xl md:text-8xl font-display font-bold uppercase text-black mb-6 leading-none tracking-wide">
-                REGALA IL MEGLIO
-            </h1>
-            <p class="font-medium text-lg text-gray-800 mb-4 leading-relaxed">
-                Regala un pranzo o una cena a una persona speciale con una <strong>Gift Card Pachamama</strong>.
-            </p>
-            <p class="font-light text-base text-gray-600 mb-4 leading-relaxed">
-                Offri molto più di un semplice pasto: dona un viaggio sensoriale attraverso i sapori autentici della cucina novoandina.
-            </p>
-            <p class="font-light text-base text-gray-600 mb-8 leading-relaxed">
-                Da <strong>Pachamama Milano</strong>, ogni piatto è un'esperienza che celebra tradizione, innovazione e ingredienti freschi, per momenti indimenticabili da condividere.
-            </p>
+    <section
+      class="max-w-7xl mx-auto px-4 pt-32 pb-12 md:pt-44 md:pb-16 flex flex-col-reverse md:flex-row items-center gap-12"
+    >
+      <!-- Text Content -->
+      <div class="w-full md:w-1/2 text-left">
+        <h1
+          class="text-5xl md:text-8xl font-display font-bold uppercase text-black mb-6 leading-none tracking-wide"
+        >
+          REGALA IL MEGLIO
+        </h1>
+        <p class="font-medium text-lg text-gray-800 mb-4 leading-relaxed">
+          Regala un pranzo o una cena a una persona speciale con una <strong
+            >Gift Card Pachamama</strong
+          >.
+        </p>
+        <p class="font-light text-base text-gray-600 mb-4 leading-relaxed">
+          Offri molto più di un semplice pasto: dona un viaggio sensoriale
+          attraverso i sapori autentici della cucina novoandina.
+        </p>
+        <p class="font-light text-base text-gray-600 mb-8 leading-relaxed">
+          Da <strong>Pachamama Milano</strong>, ogni piatto è un'esperienza che
+          celebra tradizione, innovazione e ingredienti freschi, per momenti
+          indimenticabili da condividere.
+        </p>
 
-            <div class="flex items-center gap-6">
-                <!-- Red Button -->
-                <a href="#purchase" class="bg-[#E53935] hover:bg-[#D23432] text-white font-bold py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all uppercase tracking-wide text-sm flex items-center gap-2">
-                    Compralo ora 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </a>
-            </div>
+        <div class="flex items-center gap-6">
+          <!-- Red Button -->
+          <a
+            href="#purchase"
+            class="bg-[#E53935] hover:bg-[#D23432] text-white font-bold py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all uppercase tracking-wide text-sm flex items-center gap-2"
+          >
+            Compralo ora
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg
+            >
+          </a>
         </div>
+      </div>
 
-        <!-- Image -->
-        <div class="w-full md:w-1/2 flex justify-center">
-            <div class="relative w-full max-w-lg transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <img 
-                    src="/pachamamaMilano/images/home/gift-card.webp" 
-                    alt="Pachamama Gift Card" 
-                    class="w-full h-auto drop-shadow-2xl"
-                />
-            </div>
+      <!-- Image -->
+      <div class="w-full md:w-1/2 flex justify-center">
+        <div
+          class="relative w-full max-w-lg transform rotate-2 hover:rotate-0 transition-transform duration-500"
+        >
+          <img
+            src="/images/home/gift-card.webp"
+            alt="Pachamama Gift Card"
+            class="w-full h-auto drop-shadow-2xl"
+          />
         </div>
+      </div>
     </section>
 
     <!-- FEATURES SECTION -->
     <!-- FEATURES SECTION -->
     <section class="max-w-7xl mx-auto px-4 py-12">
-        <!-- Force 3 columns ALWAYS as requested -->
-        <!-- Stack on mobile, 3 columns on desktop -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1: Esperienza Unica -->
-            <div class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300">
-                <div class="flex justify-center mb-4">
-                    <!-- Emoji: Star -->
-                    <span class="text-4xl">⭐</span>
-                </div>
-                <h3 class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight">Esperienza Unica</h3>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Regala molto più di un semplice pasto: dona un viaggio culinario attraverso i sapori autentici della <strong>cucina novoandina</strong>. Ogni piatto è un'esperienza che unisce tradizione e innovazione.
-                </p>
-            </div>
-
-            <!-- Card 2: Flessibilità -->
-            <div class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300">
-                 <div class="flex justify-center mb-4">
-                    <!-- Emoji: Wine -->
-                    <span class="text-4xl">🍷</span>
-                </div>
-                <h3 class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight">Flessibilità</h3>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    La <strong>Gift Card Pachamama</strong> è perfetta per ogni occasione. Che sia un compleanno, un anniversario o un semplice gesto d'affetto, è il regalo ideale per sorprendere chi ami.
-                </p>
-            </div>
-
-            <!-- Card 3: Momenti Indimenticabili -->
-            <div class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300">
-                 <div class="flex justify-center mb-4">
-                    <!-- Emoji: Cutlery -->
-                    <span class="text-4xl">🍽️</span>
-                </div>
-                <h3 class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight">Momenti Indimenticabili</h3>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Condividere una cena o un pranzo in un'atmosfera accogliente e raffinata non ha prezzo. <strong>Regala un momento di convivialità che resterà nel cuore.</strong> Pachamama Milano.
-                </p>
-            </div>
+      <!-- Force 3 columns ALWAYS as requested -->
+      <!-- Stack on mobile, 3 columns on desktop -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1: Esperienza Unica -->
+        <div
+          class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="flex justify-center mb-4">
+            <!-- Emoji: Star -->
+            <span class="text-4xl">⭐</span>
+          </div>
+          <h3
+            class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight"
+          >
+            Esperienza Unica
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Regala molto più di un semplice pasto: dona un viaggio culinario
+            attraverso i sapori autentici della <strong
+              >cucina novoandina</strong
+            >. Ogni piatto è un'esperienza che unisce tradizione e innovazione.
+          </p>
         </div>
+
+        <!-- Card 2: Flessibilità -->
+        <div
+          class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="flex justify-center mb-4">
+            <!-- Emoji: Wine -->
+            <span class="text-4xl">🍷</span>
+          </div>
+          <h3
+            class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight"
+          >
+            Flessibilità
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            La <strong>Gift Card Pachamama</strong> è perfetta per ogni occasione.
+            Che sia un compleanno, un anniversario o un semplice gesto d'affetto,
+            è il regalo ideale per sorprendere chi ami.
+          </p>
+        </div>
+
+        <!-- Card 3: Momenti Indimenticabili -->
+        <div
+          class="bg-white p-8 rounded-2xl border-2 border-solid border-[#E3C08D] text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="flex justify-center mb-4">
+            <!-- Emoji: Cutlery -->
+            <span class="text-4xl">🍽️</span>
+          </div>
+          <h3
+            class="font-bold text-xl text-[#1C1930] mb-3 font-body tracking-tight"
+          >
+            Momenti Indimenticabili
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Condividere una cena o un pranzo in un'atmosfera accogliente e
+            raffinata non ha prezzo. <strong
+              >Regala un momento di convivialità che resterà nel cuore.</strong
+            > Pachamama Milano.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- PURCHASE SECTION Title area -->
     <div class="text-center mt-12 mb-8" id="purchase">
-        <h2 class="text-3xl md:text-5xl font-display font-bold uppercase text-black tracking-widest">ACQUISTA UNA GIFT CARD</h2>
+      <h2
+        class="text-3xl md:text-5xl font-display font-bold uppercase text-black tracking-widest"
+      >
+        ACQUISTA UNA GIFT CARD
+      </h2>
     </div>
 
     <!-- PURCHASE FORM SECTION -->
     <section class="max-w-6xl mx-auto px-4 mb-24">
-        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row">
-            
-            <!-- FORM -->
-            <div class="w-full md:w-1/2 p-8 md:p-12 relative">
-                <form class="space-y-5">
-                    <!-- Amount -->
-                    <div class="relative">
-                         <select class="w-full border border-gray-300 rounded-md p-3 text-gray-700 bg-white focus:outline-none focus:border-[#FFD54F] focus:ring-1 focus:ring-[#FFD54F] text-sm appearance-none cursor-pointer">
-                            <option>Scegli l'importo</option>
-                            <option value="50">50,00 €</option>
-                            <option value="100">100,00 €</option>
-                            <option value="150">150,00 €</option>
-                            <option value="200">200,00 €</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                        </div>
-                    </div>
-
-                    <!-- From/To -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider">DA</label>
-                            <input type="text" placeholder="Mario Rossi" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm" />
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider">A</label>
-                            <input type="text" placeholder="Sara Rossi" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm" />
-                        </div>
-                    </div>
-
-                    <!-- Message -->
-                    <div>
-                         <textarea placeholder="Messaggio" rows="4" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm resize-none"></textarea>
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider">E-MAIL DELLA PERSONA A CUI VUOI INVIARE LA GIFTCARD</label>
-                        <input type="email" placeholder="Invia la GIFTCARD via email a" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm" />
-                    </div>
-
-                    <p class="text-[10px] text-gray-400 italic mt-2">
-                        * Tutti le Gift Card regalo sono validi per 12 mesi dalla data di acquisto.
-                    </p>
-
-                    <!-- Button -->
-                     <button type="button" class="mt-4 bg-[#E53935] hover:bg-[#D23432] text-white font-bold py-3 px-8 rounded shadow-md transition-colors w-auto uppercase tracking-wide flex items-center gap-2 text-sm">
-                        Pagamento ➔
-                    </button>
-                </form>
+      <div
+        class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row"
+      >
+        <!-- FORM -->
+        <div class="w-full md:w-1/2 p-8 md:p-12 relative">
+          <form class="space-y-6" id="giftcard-form">
+            <!-- 1. Importo -->
+            <div class="relative">
+              <label
+                class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                >Scegli l'importo</label
+              >
+              <select
+                id="amount"
+                class="w-full border border-gray-300 rounded-md p-3 text-gray-700 bg-white focus:outline-none focus:border-[#FFD54F] focus:ring-1 focus:ring-[#FFD54F] text-sm appearance-none cursor-pointer"
+              >
+                <option value="50">50,00 €</option>
+                <option value="100">100,00 €</option>
+                <option value="150">150,00 €</option>
+                <option value="200">200,00 €</option>
+              </select>
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 pt-5 text-gray-500"
+              >
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  ><path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  ></path></svg
+                >
+              </div>
             </div>
 
-            <!-- IMAGE -->
-            <div class="w-full md:w-1/2 bg-gray-100 relative min-h-[400px]">
-                <img 
-                    src="/pachamamaMilano/images/home/gift-cardpersona.webp" 
-                    alt="Happy customer with Gift Card" 
-                    class="absolute inset-0 w-full h-full object-cover"
+            <!-- 2. Chi regala (Mittente) -->
+            <div class="space-y-4">
+              <div>
+                <label
+                  class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                  >Da parte di chi (Nome)</label
+                >
+                <input
+                  type="text"
+                  id="sender_name"
+                  placeholder="Il tuo nome"
+                  maxlength="25"
+                  required
+                  class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
                 />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                    >La tua email</label
+                  >
+                  <input
+                    type="email"
+                    id="sender_email"
+                    placeholder="es. mario.rossi@email.com"
+                    required
+                    class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                    >Il tuo telefono</label
+                  >
+                  <input
+                    type="tel"
+                    id="sender_phone"
+                    placeholder="es. +39 328..."
+                    required
+                    class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
+                  />
+                </div>
+              </div>
             </div>
+
+            <!-- 3. Chi riceve (Destinatario) -->
+            <div class="pt-4 border-t border-gray-100 space-y-4">
+              <h3
+                class="text-sm font-bold text-black uppercase tracking-widest"
+              >
+                Per chi è la Gift Card?
+              </h3>
+
+              <div>
+                <label
+                  class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                  >Nome del destinatario</label
+                >
+                <input
+                  type="text"
+                  id="receiver_name"
+                  placeholder="Nome di chi riceve il regalo"
+                  maxlength="25"
+                  required
+                  class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                    >Email del destinatario</label
+                  >
+                  <input
+                    type="email"
+                    id="receiver_email"
+                    placeholder="es. sara.bianchi@email.com"
+                    required
+                    class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider"
+                    >Telefono / WhatsApp</label
+                  >
+                  <input
+                    type="tel"
+                    id="receiver_phone"
+                    placeholder="es. +39 333..."
+                    required
+                    class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  class="flex text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider justify-between"
+                >
+                  <span>Dedica (Messaggio)</span>
+                  <span
+                    id="char-counter"
+                    class="text-gray-400 lowercase font-normal hidden md:inline"
+                    >0 / 250 caratteri</span
+                  >
+                </label>
+                <textarea
+                  id="message"
+                  placeholder="Scrivi un messaggio speciale per il destinatario... (Max 250 caratteri)"
+                  rows="3"
+                  maxlength="250"
+                  class="w-full border border-gray-300 rounded-md p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#FFD54F] text-sm resize-none"
+                ></textarea>
+              </div>
+            </div>
+
+            <p class="text-[10px] text-gray-400 italic mt-2">
+              * Tutte le Gift Card sono valide per 12 mesi dalla data di
+              acquisto.
+            </p>
+
+            <!-- Button -->
+            <button
+              type="submit"
+              id="pay-button"
+              class="mt-4 bg-[#E53935] hover:bg-[#D23432] text-white font-bold py-4 px-10 rounded shadow-md transition-all w-full md:w-auto uppercase tracking-widest flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span id="button-text">Procedi al pagamento ➔</span>
+              <span id="loader" class="hidden animate-spin">⌛</span>
+            </button>
+
+            <div
+              id="status-message"
+              class="hidden mt-4 p-4 rounded text-sm font-medium"
+            >
+            </div>
+          </form>
         </div>
+
+        <!-- IMAGE -->
+        <div class="w-full md:w-1/2 bg-gray-100 relative min-h-[400px]">
+          <img
+            src="/images/home/gift-cardpersona.webp"
+            alt="Happy customer with Gift Card"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+      </div>
     </section>
 
     <!-- SEPARATOR PATTERN -->
@@ -171,56 +348,179 @@ const title = "Gift Card | Pachamama Milano";
 
     <!-- FAQ SECTION -->
     <section class="max-w-6xl mx-auto px-4 py-16 md:py-24" id="faq">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-display font-bold text-black tracking-wide">Che cosa sono le Gift Card – Pachamama Milano?</h2>
-        </div>
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl font-display font-bold text-black tracking-wide"
+        >
+          Che cosa sono le Gift Card – Pachamama Milano?
+        </h2>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-            <!-- FAQ Items -->
-            <div>
-                <h4 class="font-bold text-lg text-black mb-2">Cos'è una Gift Card di Pachamama Milano?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Ogni Gift Card di Pachamama Milano è un regalo speciale che offre un viaggio sensoriale attraverso i sapori autentici della cucina novoandina. Disponibile in diversi tagli (20, 50, 80, 100 euro e altri importi), la Gift Card permette di regalare un pranzo o una cena indimenticabile in un ambiente che celebra tradizione, innovazione e ingredienti freschi.
-                </p>
-            </div>
-            <div>
-                <h4 class="font-bold text-lg text-black mb-2">Come posso spendere la mia Gift Card?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Invita una persona cara a Pachamama Milano per un pranzo o una cena indimenticabile. Basta presentare la Gift Card al momento del pagamento per vivere un'esperienza culinaria autentica e raffinata. Ogni piatto è una celebrazione dei sapori della cucina novoandina.
-                </p>
-            </div>
-             <div>
-                <h4 class="font-bold text-lg text-black mb-2">Dove posso usare la mia Gift Card?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Puoi utilizzare la tua Gift Card esclusivamente presso il ristorante Pachamama Milano. Che si tratti di un pranzo rilassante o di una cena elegante, ogni momento diventa un'occasione speciale da condividere.
-                </p>
-            </div>
-             <div>
-                <h4 class="font-bold text-lg text-black mb-2">Per quanto tempo è valida la mia Gift Card?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Ogni Gift Card di Pachamama Milano è valida per <strong>1 anno</strong> dalla data di acquisto. Assicurati di utilizzarla entro la data di scadenza per non perdere l'occasione di vivere un'esperienza gastronomica unica.
-                </p>
-            </div>
-            <div>
-                <h4 class="font-bold text-lg text-black mb-2">Quando riceverò la mia Gift Card?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    Dopo aver effettuato l'acquisto e il pagamento, il nostro team ti contatterà per confermare che la tua Gift Card sia arrivata correttamente a la persona destinataria. Per qualsiasi problema, puoi contattarci al numero <strong>328 428 1204 – Edith Rodriguez</strong>.
-                </p>
-            </div>
-             <div>
-                <h4 class="font-bold text-lg text-black mb-2">Ho bisogno di annullare l'acquisto della mia Gift Card: cosa devo fare?</h4>
-                <p class="text-sm text-gray-600 leading-relaxed font-light">
-                    L'annullamento dell'acquisto delle Gift Card è possibile entro 14 giorni dalla data di acquisto, a condizione che non siano state utilizzate. Per modifiche o cancellazioni, contatta direttamente il numero <strong>328 428 1204 – Edith Rodriguez</strong> o scrivi a <a href="mailto:pachamamanovoandina@gmail.com" class="text-[#FFD54F] hover:underline font-bold">pachamamanovoandina@gmail.com</a>.
-                </p>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+        <!-- FAQ Items -->
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Cos'è una Gift Card di Pachamama Milano?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Ogni Gift Card di Pachamama Milano è un regalo speciale che offre un
+            viaggio sensoriale attraverso i sapori autentici della cucina
+            novoandina. Disponibile in diversi tagli (20, 50, 80, 100 euro e
+            altri importi), la Gift Card permette di regalare un pranzo o una
+            cena indimenticabile in un ambiente che celebra tradizione,
+            innovazione e ingredienti freschi.
+          </p>
         </div>
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Come posso spendere la mia Gift Card?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Invita una persona cara a Pachamama Milano per un pranzo o una cena
+            indimenticabile. Basta presentare la Gift Card al momento del
+            pagamento per vivere un'esperienza culinaria autentica e raffinata.
+            Ogni piatto è una celebrazione dei sapori della cucina novoandina.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Dove posso usare la mia Gift Card?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Puoi utilizzare la tua Gift Card esclusivamente presso il ristorante
+            Pachamama Milano. Che si tratti di un pranzo rilassante o di una
+            cena elegante, ogni momento diventa un'occasione speciale da
+            condividere.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Per quanto tempo è valida la mia Gift Card?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Ogni Gift Card di Pachamama Milano è valida per <strong
+              >1 anno</strong
+            > dalla data di acquisto. Assicurati di utilizzarla entro la data di scadenza
+            per non perdere l'occasione di vivere un'esperienza gastronomica unica.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Quando riceverò la mia Gift Card?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            Dopo aver effettuato l'acquisto e il pagamento, il nostro team ti
+            contatterà per confermare che la tua Gift Card sia arrivata
+            correttamente a la persona destinataria. Per qualsiasi problema,
+            puoi contattarci al numero <strong
+              >328 428 1204 – Edith Rodriguez</strong
+            >.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-black mb-2">
+            Ho bisogno di annullare l'acquisto della mia Gift Card: cosa devo
+            fare?
+          </h4>
+          <p class="text-sm text-gray-600 leading-relaxed font-light">
+            L'annullamento dell'acquisto delle Gift Card è possibile entro 14
+            giorni dalla data di acquisto, a condizione che non siano state
+            utilizzate. Per modifiche o cancellazioni, contatta direttamente il
+            numero <strong>328 428 1204 – Edith Rodriguez</strong> o scrivi a <a
+              href="mailto:pachamamanovoandina@gmail.com"
+              class="text-[#FFD54F] hover:underline font-bold"
+              >pachamamanovoandina@gmail.com</a
+            >.
+          </p>
+        </div>
+      </div>
 
-        <div class="text-center mt-20">
-            <h3 class="text-2xl font-display font-bold text-black mb-2 tracking-wide">Regala momenti speciali, regala un'esperienza a Pachamama Milano. ✨</h3>
-        </div>
+      <div class="text-center mt-20">
+        <h3
+          class="text-2xl font-display font-bold text-black mb-2 tracking-wide"
+        >
+          Regala momenti speciali, regala un'esperienza a Pachamama Milano. ✨
+        </h3>
+      </div>
     </section>
-
   </main>
-  
+
   <Footer />
+
+  <script is:inline>
+    const form = document.getElementById("giftcard-form");
+    const payButton = document.getElementById("pay-button");
+    const buttonText = document.getElementById("button-text");
+    const loader = document.getElementById("loader");
+    const statusMessage = document.getElementById("status-message");
+
+    // Lógica del contador de caracteres
+    const messageInput = document.getElementById("message");
+    const charCounter = document.getElementById("char-counter");
+
+    if (messageInput && charCounter) {
+      messageInput.addEventListener("input", (e) => {
+        const currentLength = e.target.value.length;
+        charCounter.textContent = `${currentLength} / 250 caratteri`;
+      });
+    }
+
+    // 1. Mostrar mensaje si regresamos de Stripe
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("success")) {
+      if (statusMessage) {
+        statusMessage.classList.remove("hidden");
+        statusMessage.classList.add("bg-green-100", "text-green-800");
+        statusMessage.innerHTML =
+          "✨ <strong>Segnalazione inviata!</strong> Verificheremo il tuo bonifico al più presto per attivare la Gift Card.";
+      }
+    }
+
+    // 2. Manejar el envío del formulario
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Estado de carga
+      if (payButton) payButton.disabled = true;
+      buttonText?.classList.add("hidden");
+      loader?.classList.remove("hidden");
+
+      const formData = {
+        amount: document.getElementById("amount").value,
+        sender_name: document.getElementById("sender_name").value,
+        sender_email: document.getElementById("sender_email").value,
+        sender_phone: document.getElementById("sender_phone").value,
+        receiver_name: document.getElementById("receiver_name").value,
+        receiver_email: document.getElementById("receiver_email").value,
+        receiver_phone: document.getElementById("receiver_phone").value,
+        message: document.getElementById("message").value,
+      };
+
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (result.url) {
+          // Guardar email para acceso directo
+          localStorage.setItem(
+            "pachamama_guest_email",
+            result.email.toLowerCase(),
+          );
+          window.location.href = result.url;
+        } else {
+          throw new Error(result.error || "Errore nel processare il pagamento");
+        }
+      } catch (error) {
+        alert("Errore: " + error.message);
+        if (payButton) payButton.disabled = false;
+        buttonText?.classList.remove("hidden");
+        loader?.classList.add("hidden");
+      }
+    });
+  </script>
 </Layout>

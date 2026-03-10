@@ -1,0 +1,268 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+const title = "Gestione Utenti / Team | Pachamama Admin";
+---
+
+<AdminLayout title={title}>
+  <div class="space-y-6 max-w-5xl mx-auto">
+    <!-- HEADER -->
+    <div class="mb-8 flex flex-col items-center justify-center text-center">
+      <h1
+        class="text-3xl font-display text-dark uppercase tracking-widest mb-4"
+      >
+        Utenti Team
+      </h1>
+      <button
+        id="btn-toggle-form"
+        class="bg-dark hover:bg-gold hover:text-dark text-white text-[10px] uppercase font-bold px-8 py-3.5 rounded-lg transition-all flex items-center shadow-md gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"></path>
+        </svg>
+        Aggiungi Utente
+      </button>
+    </div>
+
+    <!-- FORMULARIO OCULTO -->
+    <div
+      id="create-container"
+      class="hidden bg-white p-8 border border-gray-100 rounded-xl shadow-sm mb-8 transition-all max-w-2xl mx-auto"
+    >
+      <h2
+        class="text-sm font-bold uppercase tracking-widest text-dark mb-4 border-b border-gray-100 pb-2 text-center"
+      >
+        Nuovo Amministratore
+      </h2>
+
+      <div class="flex flex-col sm:flex-row gap-4 items-end">
+        <div class="flex-1 w-full">
+          <label
+            for="new-email"
+            class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2"
+            >Indirizzo Email</label
+          >
+          <input
+            type="email"
+            id="new-email"
+            placeholder="nome@pachamama.com"
+            class="w-full text-sm font-body border border-gray-200 p-3 rounded-lg focus:border-gold focus:outline-none placeholder:text-gray-300 shadow-sm"
+          />
+        </div>
+        <div class="flex-1 w-full">
+          <label
+            for="new-password"
+            class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2"
+            >Password Iniziale</label
+          >
+          <input
+            type="password"
+            id="new-password"
+            placeholder="Minimo 8 caratteri"
+            class="w-full text-sm font-body border border-gray-200 p-3 rounded-lg focus:border-gold focus:outline-none placeholder:text-gray-300 shadow-sm"
+          />
+        </div>
+
+        <button
+          id="btn-create"
+          class="bg-dark hover:bg-gold hover:text-dark text-white font-bold px-6 py-3 rounded-lg text-[10px] uppercase tracking-widest transition-all shadow-md mt-4 sm:mt-0 flex items-center justify-center gap-2 h-[46px]"
+        >
+          <span>Crea Account</span>
+          <div
+            id="loader"
+            class="hidden h-3 w-3 border-2 border-dark border-t-transparent rounded-full animate-spin"
+          >
+          </div>
+        </button>
+      </div>
+      <div
+        id="form-msg"
+        class="hidden p-3 rounded border text-[10px] font-bold uppercase tracking-widest text-center mt-4"
+      >
+      </div>
+    </div>
+
+    <!-- TABLA DE USUARIOS -->
+    <div
+      class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100"
+    >
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-gray-50 border-b border-gray-200 text-[10px] uppercase tracking-widest text-gray-500"
+            >
+              <th
+                class="p-4 font-bold w-16 border-r border-gray-100 text-center"
+                >#</th
+              >
+              <th class="p-4 font-bold w-48 border-r border-gray-100">Utente</th
+              >
+              <th class="p-4 font-bold border-r border-gray-100">Email</th>
+              <th class="p-4 font-bold w-64 text-center">Ruolo Aziendale</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody" class="text-sm">
+            <tr>
+              <td
+                colspan="4"
+                class="p-8 text-center text-gray-400 font-body animate-pulse"
+              >
+                Caricamento utenti in corso...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from "../../lib/supabase";
+
+    const btnToggleForm = document.getElementById("btn-toggle-form");
+    const createContainer = document.getElementById("create-container");
+
+    const btnCreate = document.getElementById(
+      "btn-create",
+    ) as HTMLButtonElement | null;
+    const newEmail = document.getElementById(
+      "new-email",
+    ) as HTMLInputElement | null;
+    const newPassword = document.getElementById(
+      "new-password",
+    ) as HTMLInputElement | null;
+    const loader = document.getElementById("loader");
+    const formMsg = document.getElementById("form-msg");
+    const tbody = document.getElementById("users-tbody");
+
+    let currentSession: any = null;
+
+    btnToggleForm?.addEventListener("click", () => {
+      createContainer?.classList.toggle("hidden");
+    });
+
+    function showMessage(msg: string, isError = false) {
+      if (!formMsg) return;
+      formMsg.innerText = msg;
+      formMsg.className = `p-3 rounded border text-[10px] font-bold uppercase tracking-widest text-center mt-2 ${isError ? "border-red-200 bg-red-50 text-red-500" : "border-green-200 bg-green-50 text-green-600"}`;
+      formMsg.classList.remove("hidden");
+      setTimeout(() => formMsg.classList.add("hidden"), 5000);
+    }
+
+    async function checkAdminAndLoad() {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+      if (error || !session) {
+        window.location.href = "/admin/login";
+        return;
+      }
+      currentSession = session;
+      fetchUsers();
+    }
+
+    async function fetchUsers() {
+      if (!tbody) return;
+
+      try {
+        const res = await fetch(
+          `/api/admin/get-all-users?token=${currentSession.access_token}`,
+        );
+        if (!res.ok) throw new Error("Errore recupero utenti");
+
+        const users = await res.json();
+        renderUsers(users);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-red-500 font-bold uppercase text-[10px]">ERRORE CARICAMENTO DELLA LISTA</td></tr>`;
+      }
+    }
+
+    function renderUsers(users: any[]) {
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      users.forEach((u, index) => {
+        const isMaster = u.isMaster;
+
+        const tr = document.createElement("tr");
+        tr.className =
+          "border-b border-gray-100 hover:bg-gray-50/50 transition-colors";
+
+        tr.innerHTML = `
+              <td class="p-5 align-middle border-r border-gray-100 text-center">
+                 <div class="font-mono text-sm font-bold text-gray-500">${index + 1}</div>
+              </td>
+              <td class="p-5 align-middle border-r border-gray-100">
+                 <div class="text-sm font-bold text-dark font-body capitalize">${u.email.split("@")[0]}</div>
+              </td>
+              <td class="p-5 align-middle border-r border-gray-100">
+                 <div class="text-sm text-gray-500 font-body">${u.email}</div>
+              </td>
+              <td class="p-5 align-middle text-center">
+                 <span class="inline-block px-4 py-2 rounded-full text-[9px] uppercase tracking-widest font-bold ${isMaster ? "bg-dark text-gold" : "bg-gray-100 text-gray-500"}">
+                    ${isMaster ? "Amministratore Principale" : "Membro del Team"}
+                 </span>
+              </td>
+           `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    btnCreate?.addEventListener("click", async () => {
+      const email = newEmail?.value?.trim();
+      const password = newPassword?.value?.trim();
+
+      if (!email || !password || password.length < 6) {
+        showMessage("Iserisci email e una password (minimo 6 char).", true);
+        return;
+      }
+
+      if (btnCreate) btnCreate.disabled = true;
+      loader?.classList.remove("hidden");
+      formMsg?.classList.add("hidden");
+
+      try {
+        const res = await fetch("/api/admin/create-user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: currentSession.access_token,
+            email,
+            password,
+          }),
+        });
+
+        if (res.ok) {
+          showMessage("Utente aggiunto con successo!");
+          if (newEmail) newEmail.value = "";
+          if (newPassword) newPassword.value = "";
+          // Reload list
+          fetchUsers();
+        } else {
+          const data = await res.json();
+          showMessage("Errore: " + (data.error || "Creazione fallita"), true);
+        }
+      } catch (e) {
+        console.error(e);
+        showMessage("Errore di rete.", true);
+      } finally {
+        if (btnCreate) btnCreate.disabled = false;
+        loader?.classList.add("hidden");
+      }
+    });
+
+    checkAdminAndLoad();
+  </script>
+</AdminLayout>

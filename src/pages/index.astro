@@ -7,18 +7,18 @@ import SectionPattern from '../components/SectionPattern.astro';
 import Carousel from '../components/Carousel.astro';
 
 const dishesImages = [
-  '/pachamamaMilano/images/menu/piato.jpg',
-  '/pachamamaMilano/images/menu/piato2.jpg',
-  '/pachamamaMilano/images/menu/piato3.jpg',
-  '/pachamamaMilano/images/menu/piato4.jpg',
-  '/pachamamaMilano/images/menu/piato5.jpg'
+  '/images/menu/piato.jpg',
+  '/images/menu/piato2.jpg',
+  '/images/menu/piato3.jpg',
+  '/images/menu/piato4.jpg',
+  '/images/menu/piato5.jpg'
 ];
 
 const cocktailsImages = [
-  '/pachamamaMilano/images/menu/coctail1.jpg',
-  '/pachamamaMilano/images/menu/coctail2.jpg',
-  '/pachamamaMilano/images/menu/coctail3.jpg',
-  '/pachamamaMilano/images/menu/coctail4.jpg'
+  '/images/menu/coctail1.jpg',
+  '/images/menu/coctail2.jpg',
+  '/images/menu/coctail3.jpg',
+  '/images/menu/coctail4.jpg'
 ];
 
 const title = "Pachamama Milano | Cucina Novoandina";
@@ -37,28 +37,28 @@ const title = "Pachamama Milano | Cucina Novoandina";
                     Regala un pranzo o una cena a una persona speciale con una Gift Card Pachamama. Offri molto più di un semplice pasto: dona un viaggio sensoriale attraverso i sapori autentici della cucina novoandina.
                 </p>
                 <div class="flex gap-4 items-center">
-                    <Button href="/pachamamaMilano/gift-card" variant="secondary">Compralo ora</Button>
+                    <Button href="/gift-card" variant="secondary">Compralo ora</Button>
                     <a href="#" class="border-b border-black text-xs uppercase tracking-widest font-bold hover:text-gold hover:border-gold transition-colors">Scopri di più</a>
                 </div>
             </div>
             <div class="md:w-1/2 relative group">
                 <!-- Gift Card Image - Clean (No shadow/background for transparency) -->
                 <div class="relative hover:scale-105 transition-transform duration-500">
-                    <img src="/pachamamaMilano/images/home/gift-card.webp" alt="Gift Card Pachamama" class="w-full h-auto object-contain" onerror="this.src='https://placehold.co/600x400/eee/333?text=Gift+Card+Preview'"/>
+                    <img src="/images/home/gift-card.webp" alt="Gift Card Pachamama" class="w-full h-auto object-contain" onerror="this.src='https://placehold.co/600x400/eee/333?text=Gift+Card+Preview'"/>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 2. Hero Section (Interior) -->
-    <section class="relative min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/pachamamaMilano/images/home/interior-1.jpg');">
+    <section class="relative min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('/images/home/interior-1.jpg');">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-black/40"></div>
         
         <div class="relative z-10 text-center text-white px-4">
             <h1 class="text-5xl md:text-7xl font-display font-bold uppercase tracking-widest mb-2 text-shadow">Pachamama Milano</h1>
             <p class="text-xl md:text-2xl font-light tracking-widest mb-8 uppercase">Il primo ristorante dedicato alla cucina novoandina</p>
-            <Button href="/pachamamaMilano/prenota">Prenota un Tavolo 📞</Button>
+            <Button href="/prenota">Prenota un Tavolo 📞</Button>
         </div>
         
         <!-- Fallback background if image missing -->
@@ -153,7 +153,7 @@ const title = "Pachamama Milano | Cucina Novoandina";
     </section>
 
     <!-- 6. Interior Image (Full Width & Height, Clean) -->
-    <section class="min-h-screen relative bg-cover bg-center" style="background-image: url('/pachamamaMilano/images/home/interior-1.jpg');">
+    <section class="min-h-screen relative bg-cover bg-center" style="background-image: url('/images/home/interior-1.jpg');">
          <!-- No overlay, just the clean image -->
     </section>
 

@@ -2,30 +2,38 @@
 import "../styles/global.css";
 
 interface Props {
-	title: string;
-    description?: string;
+  title: string;
+  description?: string;
 }
 
-const { title, description = "Ristorante peruviano a Milano, Pachamama! Un’esperienza unica di cucina novoandina." } = Astro.props;
+const {
+  title,
+  description = "Ristorante peruviano a Milano, Pachamama! Un’esperienza unica di cucina novoandina.",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="it">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/pachamamaMilano/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-        
-        <!-- Google Fonts: Bebas Neue (Titles) & Montserrat (Text) -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-		<title>{title}</title>
-	</head>
-	<body class="bg-dark text-white font-body antialiased selection:bg-gold selection:text-black">
-		<slot />
-	</body>
+    <!-- Google Fonts: Bebas Neue (Titles) & Montserrat (Text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body
+    class="bg-dark text-white font-body antialiased selection:bg-gold selection:text-black"
+  >
+    <slot />
+  </body>
 </html>

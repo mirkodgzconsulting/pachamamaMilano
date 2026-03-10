@@ -1,0 +1,112 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const title = "Area Cliente | Pachamama Milano";
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main
+    class="min-h-screen pt-32 pb-20 px-4 bg-[#FBF6E6] flex items-center justify-center flex-col"
+  >
+    <!-- Premium Login Card -->
+    <div
+      class="bg-dark p-8 md:p-12 rounded-sm shadow-2xl w-full max-w-md border border-white/5"
+    >
+      <div class="text-center mb-8">
+        <h1
+          class="text-3xl font-display text-gold uppercase tracking-widest mb-2"
+        >
+          Area Riservata
+        </h1>
+        <p class="text-gray-400 font-body text-xs leading-relaxed font-light">
+          Inserisci la tua email per accedere alle tue Gift Card e verificare lo
+          stato dei tuoi ordini.
+        </p>
+      </div>
+
+      <div id="login-section" class="space-y-6">
+        <div>
+          <label
+            for="email"
+            class="block text-[10px] font-bold text-gold uppercase tracking-[0.2em] mb-3"
+            >Il Tuo Indirizzo Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="mario.rossi@email.com"
+            class="w-full bg-white/5 border border-white/10 rounded-sm px-5 py-4 text-white placeholder:text-gray-600 focus:border-gold focus:outline-none transition-all font-body text-sm"
+          />
+        </div>
+
+        <button
+          id="btn-login"
+          class="w-full bg-gold hover:bg-white text-dark font-bold py-4 rounded-sm uppercase tracking-[0.2em] transition-all transform active:scale-95 shadow-lg flex justify-center items-center gap-3 mt-4 text-[11px]"
+        >
+          <span>Accedi ai miei ordini</span>
+          <div
+            id="loader"
+            class="hidden h-4 w-4 border-2 border-dark border-t-transparent rounded-full animate-spin"
+          >
+          </div>
+        </button>
+      </div>
+
+      <div
+        id="auth-message"
+        class="hidden mt-6 p-4 rounded border border-red-500/20 bg-red-500/10 text-red-400 text-[10px] font-bold uppercase tracking-widest text-center"
+      >
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    import { supabase } from "../../lib/supabase";
+
+    const emailInput = document.getElementById(
+      "email",
+    ) as HTMLInputElement | null;
+    const btnLogin = document.getElementById(
+      "btn-login",
+    ) as HTMLButtonElement | null;
+    const loader = document.getElementById("loader");
+    const authMessage = document.getElementById("auth-message");
+
+    btnLogin?.addEventListener("click", async () => {
+      const email = emailInput?.value?.trim().toLowerCase();
+      if (!email) return;
+
+      if (btnLogin) btnLogin.disabled = true;
+      loader?.classList.remove("hidden");
+      authMessage?.classList.add("hidden");
+
+      // Verificar si existe alguna orden para este email
+      const { data, error } = await supabase
+        .from("gift_cards")
+        .select("sender_email")
+        .eq("sender_email", email)
+        .limit(1);
+
+      if (error || !data || data.length === 0) {
+        authMessage?.classList.remove("hidden");
+        if (authMessage)
+          authMessage.innerText =
+            "ERRORE: NESSUN ORDINE TROVATO CON QUESTA EMAIL";
+        if (btnLogin) btnLogin.disabled = false;
+        loader?.classList.add("hidden");
+        return;
+      }
+
+      // Acceso directo
+      localStorage.setItem("pachamama_guest_email", email.toLowerCase());
+      window.location.href = "/area-cliente";
+    });
+  </script>
+</Layout>

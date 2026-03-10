@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Grazie per il tuo acquisto! | Pachamama Milano">
+  <Header />
+
+  <main
+    class="min-h-screen bg-white flex items-center justify-center pt-24 px-4 pb-20"
+  >
+    <div class="max-w-xl w-full text-center">
+      <!-- Icono de Éxito Premium -->
+      <div class="mb-8 flex justify-center">
+        <div
+          class="bg-green-100 text-green-600 p-8 rounded-full shadow-lg shadow-green-100/50 scale-110"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-16 w-16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+          >
+        </div>
+      </div>
+
+      <h1
+        class="text-5xl font-display text-dark uppercase tracking-widest mb-4"
+      >
+        Pagamento Riuscito! ✨
+      </h1>
+      <p class="text-gray-500 font-light mb-12 text-lg italic">
+        Grazie per aver regalato un'esperienza a Pachamama Milano. <br />
+        Riceverai a breve una email di conferma con la tua Gift Card digitale.
+      </p>
+
+      <!-- Botones de Acción -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a
+          href="/area-cliente"
+          class="bg-dark text-gold font-bold py-5 rounded-2xl uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3"
+        >
+          Vai al tuo Area Cliente
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            ><path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+            ></path></svg
+          >
+        </a>
+
+        <a
+          href="/"
+          class="bg-gray-100 text-gray-600 font-bold py-5 rounded-2xl uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
+        >
+          Torna alla Home
+        </a>
+      </div>
+
+      <p
+        class="mt-12 text-[10px] text-gray-400 font-medium uppercase tracking-widest"
+      >
+        Pachamama Milano - Esperienza Novoandina
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

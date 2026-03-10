@@ -1,0 +1,248 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const title = "Area Cliente | Pachamama Milano";
+---
+
+<Layout title={title}>
+  <Header />
+
+  <main class="min-h-screen bg-[#FBF6E6] pt-32">
+    <!-- Sezione Intestazione -->
+    <div class="container mx-auto max-w-5xl px-4 py-12">
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 border-b-2 border-black/5 pb-10"
+      >
+        <div>
+          <span
+            class="inline-block px-3 py-1 mb-4 text-[10px] tracking-widest text-gold bg-dark font-bold uppercase rounded-sm"
+            >Area Riservata</span
+          >
+          <h1
+            id="user-greeting"
+            class="text-5xl md:text-6xl font-display font-bold uppercase text-black leading-none"
+          >
+            Benvenuto
+          </h1>
+          <p
+            id="user-email"
+            class="text-gray-500 font-body text-sm mt-4 font-light italic"
+          >
+            Caricamento account...
+          </p>
+        </div>
+        <div class="flex gap-4">
+          <a
+            href="/gift-card"
+            class="bg-black text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-gold hover:text-dark transition-all shadow-lg"
+          >
+            Acquista Gift Card
+          </a>
+        </div>
+      </div>
+
+      <!-- Listato Gift Cards -->
+      <div class="space-y-8">
+        <div class="flex justify-between items-center">
+          <h2
+            class="font-display text-2xl uppercase tracking-widest text-black flex items-center gap-3"
+          >
+            - I Tuoi Ordini
+            <span
+              id="card-count"
+              class="text-sm font-body text-gray-400 font-light">(0)</span
+            >
+          </h2>
+        </div>
+
+        <div id="giftcard-list" class="grid grid-cols-1 gap-6">
+          <!-- Skeletons -->
+          <div class="h-32 bg-white/50 animate-pulse border border-black/5">
+          </div>
+          <div class="h-32 bg-white/50 animate-pulse border border-black/5">
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div
+          id="empty-state"
+          class="hidden text-center py-20 bg-white/30 border-2 border-dashed border-black/5"
+        >
+          <p class="text-gray-500 font-body text-sm mb-6">
+            Non hai ancora effettuato acquisti.
+          </p>
+          <a
+            href="/gift-card"
+            class="text-black border-b border-black text-xs uppercase tracking-widest font-bold hover:text-gold hover:border-gold transition-colors"
+            >Inizia il tuo viaggio</a
+          >
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    import { supabase } from "../../lib/supabase";
+
+    const giftcardList = document.getElementById("giftcard-list");
+    const emptyState = document.getElementById("empty-state");
+    const userEmail = document.getElementById("user-email");
+    const userGreeting = document.getElementById("user-greeting");
+    const cardCount = document.getElementById("card-count");
+
+    console.log("Area Cliente Script Inicializzato");
+
+    function updateUI(email: string) {
+      if (userEmail) {
+        userEmail.textContent = email;
+        userEmail.classList.remove("italic", "text-gray-500");
+        userEmail.classList.add("text-dark", "font-medium");
+      }
+
+      if (userGreeting) {
+        const namePart = email.split("@")[0].toUpperCase();
+        userGreeting.textContent = `CIAO, ${namePart}`;
+      }
+    }
+
+    async function checkUser() {
+      // 1. Obtener email de localStorage inmediatamente para no esperar nada
+      const guestEmail = localStorage.getItem("pachamama_guest_email");
+      console.log("Guest Email encontrado:", guestEmail);
+
+      if (guestEmail) {
+        updateUI(guestEmail);
+        fetchGiftCards(guestEmail);
+      }
+
+      // 2. Verificar si hay una sesión real (por si acaso se logueó tradicionalmente)
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const email = (session?.user?.email || guestEmail || "")
+        .trim()
+        .toLowerCase();
+
+      console.log("Email definitivo a usar:", email);
+
+      if (!email) {
+        window.location.href = "/area-cliente/login";
+        return;
+      }
+
+      // Si el email de la sesión es diferente al de guest, actualizamos
+      if (email !== guestEmail) {
+        updateUI(email);
+        fetchGiftCards(email);
+      }
+    }
+
+    async function fetchGiftCards(email: string) {
+      if (!giftcardList || !email) return;
+
+      try {
+        // Llamamos a nuestra API propia en lugar de directo a Supabase
+        // Esto evita bloqueos de RLS para usuarios invitados
+        const cleanEmail = email.trim().toLowerCase();
+        const response = await fetch(
+          `/api/get-orders?email=${encodeURIComponent(cleanEmail)}`,
+        );
+        if (!response.ok) throw new Error("Errore nel recupero degli ordini");
+
+        const data = await response.json();
+        console.log("Órdenes recibidas:", data.length);
+
+        if (!data || data.length === 0) {
+          giftcardList.innerHTML = "";
+          emptyState?.classList.remove("hidden");
+          if (cardCount) cardCount.textContent = "(0)";
+          return;
+        }
+
+        if (cardCount) cardCount.textContent = `(${data.length})`;
+        giftcardList.innerHTML = "";
+        emptyState?.classList.add("hidden");
+
+        data.forEach((card: any) => {
+          const cardEl = document.createElement("div");
+          cardEl.className =
+            "group bg-white border border-black/5 p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-8 transition-all hover:shadow-2xl hover:border-gold/30 relative overflow-hidden";
+
+          let statusText = "In attesa";
+          let statusStyles = "text-gray-400 border-gray-100";
+          let statusAction = "";
+          let visualModifier = "";
+
+          if (card.status === "pending") {
+            statusText = "Da Pagare";
+            statusStyles = "text-red-500 border-red-100 bg-red-50/50";
+            visualModifier = "opacity-80 grayscale-[0.5]";
+            statusAction = `
+                <a href="/conferma-bonifico?id=${card.id}" class="flex items-center gap-3 bg-dark text-white font-bold py-3 px-8 text-[10px] uppercase tracking-widest hover:bg-gold hover:text-dark transition-all">
+                    Invia Bonifico
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </a>`;
+          } else if (card.status === "processing") {
+            statusText = "Verifica in corso";
+            statusStyles = "text-blue-500 border-blue-100 bg-blue-50/50";
+            statusAction = `
+                <div class="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border border-gray-100 py-3 px-8 italic">
+                   Attesa Conferma
+                </div>`;
+          } else if (card.status === "confirmed") {
+            statusText = "Attiva";
+            statusStyles = "text-green-600 border-green-100 bg-green-50/50";
+            statusAction = `
+                <div class="relative z-20 pointer-events-auto">
+                  <a href="/area-cliente/scarica-gift-card?id=${card.id}" target="_blank" class="flex items-center gap-3 bg-gold text-dark font-bold py-3 px-8 text-[10px] uppercase tracking-widest hover:bg-dark hover:text-white transition-all shadow-lg cursor-pointer">
+                      Scarica Gift Card
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                  </a>
+                </div>`;
+          }
+
+          if (visualModifier) {
+            cardEl.classList.add(...visualModifier.split(" ").filter(Boolean));
+          }
+
+          cardEl.innerHTML = `
+            <div class="flex items-center gap-6 md:gap-8 w-full md:w-auto relative">
+                <!-- Desktop Amount Box -->
+                <div class="hidden md:flex flex-col items-center justify-center bg-gray-50 p-4 min-w-[100px] border-r border-black/5">
+                    <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Euro</p>
+                    <p class="text-3xl font-display text-black font-bold">€${card.amount / 100}</p>
+                </div>
+
+                <!-- Mobile Amount Badge (Top Right) -->
+                <div class="md:hidden absolute top-0 right-0 flex flex-col items-end">
+                    <p class="text-2xl font-display text-black font-bold leading-none">€${card.amount / 100}</p>
+                </div>
+
+                <div class="space-y-1 w-full md:w-auto pr-16 md:pr-0">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-[9px] font-mono text-gray-400">#${card.id.split("-")[0].toUpperCase()}</span>
+                        <span class="px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest border ${statusStyles}">${statusText}</span>
+                    </div>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Inviato a</p>
+                    <p class="text-xl font-display text-black uppercase leading-none break-all">${card.receiver_name}</p>
+                    <p class="text-[10px] text-gray-500 font-light italic mt-1 font-body">Acquistato il ${new Date(card.created_at).toLocaleDateString()}</p>
+                </div>
+            </div>
+            <div class="w-full md:w-auto mt-6 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-black/5 flex justify-center md:justify-end">
+                ${statusAction}
+            </div>
+          `;
+          giftcardList.appendChild(cardEl);
+        });
+      } catch (err) {
+        console.error("Error fetching gift cards:", err);
+      }
+    }
+
+    checkUser();
+  </script>
+</Layout>

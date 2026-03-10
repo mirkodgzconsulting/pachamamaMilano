@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+
+const sessionId = Astro.url.searchParams.get("sessionId");
+---
+
+<Layout title="Pagamento Sicuro | Pachamama Milano">
+  <Header />
+
+  <main
+    class="min-h-screen bg-gray-50 flex items-center justify-center pt-20 px-4"
+  >
+    <div class="max-w-md w-full">
+      <!-- Tarjeta de Pago Simulada -->
+      <div
+        class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100"
+      >
+        <!-- Header del Pago -->
+        <div class="bg-dark p-8 text-white text-center">
+          <div class="flex justify-center mb-4">
+            <div class="bg-gold p-3 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 text-black"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path></svg
+              >
+            </div>
+          </div>
+          <h2 class="text-2xl font-display uppercase tracking-widest text-gold">
+            Stripe Simulator
+          </h2>
+          <p class="text-xs text-gray-400 mt-1 uppercase tracking-tighter">
+            Ambiente di test sicuro
+          </p>
+        </div>
+
+        <div class="p-8 space-y-6">
+          <div
+            class="flex justify-between items-center border-b border-gray-100 pb-4"
+          >
+            <span class="text-gray-500 text-sm">Totale da pagare</span>
+            <span
+              id="amount-display"
+              class="text-2xl font-bold text-dark italic">€ --</span
+            >
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-[10px] text-gray-400 uppercase font-bold">
+              Dettagli di pagamento
+            </p>
+            <div
+              class="p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-600 font-mono"
+            >
+              **** **** **** 4242
+            </div>
+          </div>
+
+          <button
+            id="confirm-btn"
+            class="w-full bg-gold hover:bg-black hover:text-white text-black font-bold py-4 rounded-xl uppercase tracking-widest transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3"
+          >
+            Paga ora
+          </button>
+
+          <p class="text-center text-[10px] text-gray-400 italic">
+            Questa è una simulazione. Nessun addebito verrà effettuato.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <a
+          href="/gift-card"
+          class="text-xs text-gray-400 hover:text-dark underline"
+          >Annulla e torna al sito</a
+        >
+      </div>
+    </div>
+  </main>
+
+  <script define:vars={{ sessionId }}>
+    // Simulamos cargar el importe desde la sesión (metadata en real)
+    // Para esta simulación lo sacamos de lo que acabamos de registrar en Supabase
+    const confirmBtn = document.getElementById("confirm-btn");
+
+    confirmBtn.addEventListener("click", async () => {
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML =
+        '<div class="h-5 w-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div> Elaborazione...';
+
+      // Llamamos al API real de confirmación
+      const response = await fetch(
+        `/api/confirm-simulation?sessionId=${sessionId}`,
+      );
+
+      if (response.ok) {
+        window.location.href = "/successo";
+      } else {
+        alert("Errore nella simulazione");
+        confirmBtn.disabled = false;
+        confirmBtn.innerHTML = "Paga ora";
+      }
+    });
+
+    // Pequeño truco para mostrar el importe (opcional)
+    document.getElementById("amount-display").innerText = "Verifica...";
+  </script>
+</Layout>

@@ -1,0 +1,195 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+const title = "Gestione Gift Card | Pachamama Admin";
+---
+
+<AdminLayout title={title}>
+  <div class="space-y-6">
+    <!-- HEADER ADMIN -->
+    <div class="mb-4">
+      <h1
+        class="text-3xl font-display text-dark uppercase tracking-widest text-center mb-1"
+      >
+        Ordini Gift Card
+      </h1>
+    </div>
+
+    <!-- TABELLA ORDINI -->
+    <div
+      class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100"
+    >
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-gray-50 border-b border-gray-200 text-[10px] uppercase tracking-widest text-gray-500"
+            >
+              <th class="p-4 font-bold w-24 border-r border-gray-100">Data</th>
+              <th class="p-4 font-bold border-r border-gray-100">Acquirente</th>
+              <th class="p-4 font-bold border-r border-gray-100"
+                >Destinatario</th
+              >
+              <th
+                class="p-4 font-bold w-28 border-r border-gray-100 text-center"
+                >Importo</th
+              >
+              <th class="p-4 font-bold w-64 text-center">Stato</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody" class="text-sm">
+            <tr>
+              <td
+                colspan="5"
+                class="p-8 text-center text-gray-400 font-body animate-pulse"
+              >
+                Caricamento ordini in corso...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div
+    id="toast"
+    class="fixed bottom-4 right-4 bg-dark text-white px-6 py-4 rounded shadow-2xl transition-all translate-y-[150%] opacity-0 z-50 flex items-center gap-3"
+  >
+    <div
+      class="text-gold font-bold text-[10px] uppercase tracking-widest"
+      id="toast-message"
+    >
+      Salvataggio...
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from "../../lib/supabase";
+
+    const btnRefresh = document.getElementById("btn-refresh");
+    const tbody = document.getElementById("orders-tbody");
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+
+    let currentSession: any = null;
+
+    // Show toast message
+    function showToast(message: string, isError = false) {
+      if (!toast || !toastMessage) return;
+      toastMessage.innerText = message;
+      toastMessage.className = `font-bold text-[10px] uppercase tracking-widest ${isError ? "text-red-400" : "text-green-400"}`;
+      toast.classList.remove("translate-y-[150%]", "opacity-0");
+
+      setTimeout(() => {
+        toast.classList.add("translate-y-[150%]", "opacity-0");
+      }, 3000);
+    }
+
+    async function checkAdminAndLoad() {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        window.location.href = "/admin/login";
+        return;
+      }
+      currentSession = session;
+      fetchOrders();
+    }
+
+    async function fetchOrders() {
+      if (!tbody) return;
+      tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400 font-body animate-pulse">Caricamento ordini dal server...</td></tr>`;
+
+      try {
+        const res = await fetch(
+          `/api/admin/get-all-orders?token=${currentSession.access_token}`,
+        );
+        if (!res.ok) throw new Error("Errore recupero dati");
+
+        const data = await res.json();
+        renderTable(data);
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-500 font-bold uppercase text-[10px]">ERRORE NEL CARICAMENTO DELLA LISTA</td></tr>`;
+      }
+    }
+
+    function renderTable(orders: any[]) {
+      if (!tbody) return;
+      if (orders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400">Non hai ancora venduto nessuna Gift Card.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = "";
+
+      orders.forEach((order) => {
+        const tr = document.createElement("tr");
+        tr.className =
+          "border-b border-gray-100 hover:bg-gray-50/50 transition-colors";
+
+        const isPending = order.status === "pending" || !order.status;
+        const isProcessing = order.status === "processing";
+        const isConfirmed = order.status === "confirmed";
+
+        tr.innerHTML = `
+              <td class="p-5 align-middle border-r border-gray-100">
+                 <div class="text-sm font-bold text-dark font-body">${new Date(order.created_at).toLocaleDateString()}</div>
+              </td>
+              <td class="p-5 align-middle border-r border-gray-100">
+                 <div class="text-sm text-dark font-body font-bold">${order.sender_email}</div>
+              </td>
+              <td class="p-5 align-middle border-r border-gray-100">
+                 <div class="text-sm font-bold text-dark font-body break-all">${order.receiver_name}</div>
+              </td>
+              <td class="p-5 align-middle text-center border-r border-gray-100">
+                 <div class="text-xl font-display font-bold text-dark">€${order.amount / 100}</div>
+              </td>
+              <td class="p-5 align-middle w-64 bg-gray-50/30">
+                 <select id="status-${order.id}" onchange="window.updateStatus('${order.id}', this.value)" class="w-full text-xs font-bold text-dark appearance-auto border border-gray-200 rounded-lg p-3 bg-white cursor-pointer shadow-sm transition-colors focus:border-gold focus:outline-none hover:border-gray-300">
+                    <option value="pending" ${isPending ? "selected" : ""}>Da Pagare (Pending)</option>
+                    <option value="processing" ${isProcessing ? "selected" : ""} class="font-bold text-gold">Verifica in Corso</option>
+                    <option value="confirmed" ${isConfirmed ? "selected" : ""} class="font-bold text-green-600">Confermato (Attivo)</option>
+                 </select>
+              </td>
+           `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Attach to window so onclick inside raw HTML works
+    (window as any).updateStatus = async (orderId: string, status: string) => {
+      showToast("Aggiornamento...");
+      try {
+        const res = await fetch("/api/admin/update-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: currentSession.access_token,
+            orderId,
+            status,
+            gift_card_url: "", // Mantener vacio o lo que estipule tu API
+          }),
+        });
+
+        if (res.ok) {
+          showToast("Stato aggiornato!");
+        } else {
+          showToast("Errore durante l'aggiornamento", true);
+        }
+      } catch (err) {
+        console.error(err);
+        showToast("Errore di rete", true);
+      }
+    };
+
+    btnRefresh?.addEventListener("click", fetchOrders);
+
+    // Start
+    checkAdminAndLoad();
+  </script>
+</AdminLayout>

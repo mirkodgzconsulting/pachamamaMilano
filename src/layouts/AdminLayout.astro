@@ -1,0 +1,263 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Google Fonts: Bebas Neue (Titles) & Montserrat (Text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 font-body text-dark flex h-screen overflow-hidden">
+    <!-- Sidebar (Left Side) -->
+    <aside
+      id="admin-sidebar"
+      class="w-64 bg-white border-r border-gray-200 flex flex-col transition-transform transform -translate-x-full md:translate-x-0 absolute md:relative left-0 h-full z-40 shadow-sm"
+    >
+      <div class="p-6 border-b border-gray-100 flex flex-col items-center">
+        <img
+          src="/logo.png"
+          alt="Pachamama"
+          class="h-12 mb-3 drop-shadow-md"
+          onerror="this.src='/favicon.svg'"
+        />
+        <p class="text-[9px] text-gray-400 uppercase tracking-widest font-bold">
+          Workspace Admin
+        </p>
+      </div>
+      <div class="px-6 py-4">
+        <p
+          class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2"
+        >
+          Home
+        </p>
+        <nav class="space-y-1">
+          <a
+            href="/admin"
+            class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-bold text-xs text-gray-500 hover:text-gold hover:bg-dark"
+            id="nav-dashboard"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              ></path></svg
+            >
+            Dashboard
+          </a>
+        </nav>
+      </div>
+
+      <div class="px-6 py-2 flex-1">
+        <p
+          class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2"
+        >
+          Gestione
+        </p>
+        <nav class="space-y-1">
+          <a
+            href="/admin/gift-cards"
+            class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-bold text-xs text-gray-500 hover:text-gold hover:bg-dark"
+            id="nav-gift-cards"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path></svg
+            >
+            Vite / Pagamenti
+          </a>
+          <a
+            href="/admin/users"
+            class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-bold text-xs text-gray-500 hover:text-gold hover:bg-dark"
+            id="nav-users"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path></svg
+            >
+            Utenti Team
+          </a>
+        </nav>
+      </div>
+      <div
+        class="p-6 text-[10px] text-gray-400 border-t border-gray-100 flex items-center justify-between"
+      >
+        <div class="font-bold">v1.0</div>
+        <div class="uppercase tracking-widest">Pachamama</div>
+      </div>
+    </aside>
+
+    <!-- Main Content (Right Side) -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+      <!-- Header -->
+      <header
+        class="bg-white h-16 flex items-center justify-between px-6 border-b border-gray-200 shrink-0"
+      >
+        <div class="flex items-center gap-4">
+          <!-- Mobile sidebar toggle -->
+          <button
+            id="sidebar-toggle"
+            class="md:hidden text-gray-500 focus:outline-none hover:text-dark"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+
+          <div class="relative hidden md:block">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg
+            >
+            <input
+              type="text"
+              placeholder="Cerca o digita comando..."
+              class="bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white pl-10 pr-4 py-2 rounded-lg text-xs w-64 outline-none transition-all placeholder:text-gray-400"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span
+            class="text-[10px] font-bold tracking-widest uppercase text-dark bg-gray-100 px-3 py-1.5 rounded-full hidden sm:block"
+            id="admin-user-email">...</span
+          >
+          <button
+            id="btn-logout"
+            class="bg-gray-50 hover:bg-red-50 text-red-500 text-[10px] uppercase font-bold px-4 py-2 rounded-lg transition-colors border border-gray-200"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Content -->
+      <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50/50">
+        <slot />
+      </main>
+    </div>
+    <script>
+      import { supabase } from "../lib/supabase";
+
+      const btnLogout = document.getElementById("btn-logout");
+      const emailDisplay = document.getElementById("admin-user-email");
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebar = document.getElementById("admin-sidebar");
+      const overlay = document.getElementById("sidebar-overlay");
+
+      // Highlight active nav
+      const path = window.location.pathname;
+      const linkDashboard = document.getElementById("nav-dashboard");
+      const linkGiftCards = document.getElementById("nav-gift-cards");
+      const linkUsers = document.getElementById("nav-users");
+
+      if (path === "/admin" || path === "/admin/")
+        linkDashboard?.classList.add("bg-gold", "text-dark", "shadow-sm");
+      else if (path.includes("/admin/gift-cards"))
+        linkGiftCards?.classList.add("bg-gold", "text-dark", "shadow-sm");
+      else if (path.includes("/admin/users"))
+        linkUsers?.classList.add("bg-gold", "text-dark", "shadow-sm");
+
+      async function checkAdmin() {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+        if (error || !session) {
+          window.location.href = "/admin/login";
+          return;
+        }
+
+        // Verify if its an admin
+        const isMasterAdmin = session.user.email === "admin@pachamama.com";
+        const isTeamAdmin = session.user.user_metadata?.role === "admin";
+
+        if (!isMasterAdmin && !isTeamAdmin) {
+          await supabase.auth.signOut();
+          window.location.href = "/admin/login";
+          return;
+        }
+
+        if (emailDisplay) emailDisplay.innerText = session.user.email || "";
+      }
+
+      btnLogout?.addEventListener("click", async () => {
+        await supabase.auth.signOut();
+        window.location.href = "/admin/login";
+      });
+
+      // Mobile sidebar logic
+      sidebarToggle?.addEventListener("click", () => {
+        sidebar?.classList.remove("-translate-x-full");
+        overlay?.classList.remove("hidden");
+      });
+
+      overlay?.addEventListener("click", () => {
+        sidebar?.classList.add("-translate-x-full");
+        overlay?.classList.add("hidden");
+      });
+
+      checkAdmin();
+    </script>
+  </body>
+</html>
