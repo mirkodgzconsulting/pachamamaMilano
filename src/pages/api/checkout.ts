@@ -18,6 +18,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     // 2. Registro Silencioso / Búsqueda de Usuario
     let finalUserId = userId;
+    let isNewUser = false;
 
     if (!finalUserId) {
         // Buscar si el usuario ya existe consultando directamente la base de datos de perfiles
@@ -41,7 +42,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
                 console.error("Error createUser:", createError);
                 throw createError;
             }
-            if (newUser) finalUserId = newUser.id;
+            if (newUser) {
+                finalUserId = newUser.id;
+                isNewUser = true;
+            }
         }
     }
 
@@ -79,8 +83,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     if (insertError) throw insertError;
 
-    // 5. Devolvemos la URL y el email para persistencia local
-    const redirectUrl = `/conferma-bonifico?id=${newCard.id}`;
+    // 5. Devolvemos la URL (Setup si es nuevo, o Login si ya existía)
+    const redirectUrl = isNewUser
+       ? `/area-cliente/setup?email=${encodeURIComponent(cleanSenderEmail)}&order=${newCard.id}`
+       : `/login?email=${encodeURIComponent(cleanSenderEmail)}`;
 
     return new Response(JSON.stringify({ 
       url: redirectUrl, 

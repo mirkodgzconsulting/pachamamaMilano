@@ -14,9 +14,9 @@ const title = "Gestione Gift Card | Pachamama Admin";
       </h1>
     </div>
 
-    <!-- TABELLA ORDINI -->
+    <!-- TABELLA ORDINI (Desktop) -->
     <div
-      class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100"
+      class="hidden md:block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100"
     >
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -33,13 +33,17 @@ const title = "Gestione Gift Card | Pachamama Admin";
                 class="p-4 font-bold w-28 border-r border-gray-100 text-center"
                 >Importo</th
               >
+              <th
+                class="p-4 font-bold w-32 border-r border-gray-100 text-center"
+                >Design</th
+              >
               <th class="p-4 font-bold w-64 text-center">Stato</th>
             </tr>
           </thead>
           <tbody id="orders-tbody" class="text-sm">
             <tr>
               <td
-                colspan="5"
+                colspan="6"
                 class="p-8 text-center text-gray-400 font-body animate-pulse"
               >
                 Caricamento ordini in corso...
@@ -47,6 +51,15 @@ const title = "Gestione Gift Card | Pachamama Admin";
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- VISTA MOBILE (Card-based) -->
+    <div id="orders-mobile" class="md:hidden space-y-4 pb-10">
+      <div
+        class="text-center p-8 text-gray-400 font-body animate-pulse bg-white rounded-xl border border-gray-100"
+      >
+        Caricamento ordini in corso...
       </div>
     </div>
   </div>
@@ -100,9 +113,14 @@ const title = "Gestione Gift Card | Pachamama Admin";
       fetchOrders();
     }
 
+    const mobileContainer = document.getElementById("orders-mobile");
+
     async function fetchOrders() {
-      if (!tbody) return;
-      tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400 font-body animate-pulse">Caricamento ordini dal server...</td></tr>`;
+      if (!tbody || !mobileContainer) return;
+
+      const loadingHtml = `<div class="p-8 text-center text-gray-400 font-body animate-pulse">Caricamento ordini dal server...</div>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-400 font-body animate-pulse">Caricamento ordini dal server...</td></tr>`;
+      mobileContainer.innerHTML = `<div class="bg-white rounded-xl border border-gray-100">${loadingHtml}</div>`;
 
       try {
         const res = await fetch(
@@ -114,31 +132,40 @@ const title = "Gestione Gift Card | Pachamama Admin";
         renderTable(data);
       } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-500 font-bold uppercase text-[10px]">ERRORE NEL CARICAMENTO DELLA LISTA</td></tr>`;
+        const errorHtml = `<div class="p-8 text-center text-red-500 font-bold uppercase text-[10px]">ERRORE NEL CARICAMENTO DELLA LISTA</div>`;
+        tbody.innerHTML = `<tr><td colspan="6">${errorHtml}</td></tr>`;
+        mobileContainer.innerHTML = `<div class="bg-white rounded-xl border border-gray-100">${errorHtml}</div>`;
       }
     }
 
     function renderTable(orders: any[]) {
-      if (!tbody) return;
+      if (!tbody || !mobileContainer) return;
+
       if (orders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400">Non hai ancora venduto nessuna Gift Card.</td></tr>`;
+        const emptyHtml = `<div class="p-8 text-center text-gray-400">Non hai ancora venduto nessuna Gift Card.</div>`;
+        tbody.innerHTML = `<tr><td colspan="6">${emptyHtml}</td></tr>`;
+        mobileContainer.innerHTML = `<div class="bg-white rounded-xl border border-gray-100">${emptyHtml}</div>`;
         return;
       }
 
       tbody.innerHTML = "";
+      mobileContainer.innerHTML = "";
 
       orders.forEach((order) => {
-        const tr = document.createElement("tr");
-        tr.className =
-          "border-b border-gray-100 hover:bg-gray-50/50 transition-colors";
-
         const isPending = order.status === "pending" || !order.status;
         const isProcessing = order.status === "processing";
         const isConfirmed = order.status === "confirmed";
 
+        const dateFormatted = new Date(order.created_at).toLocaleDateString();
+        const amountFormatted = `€${order.amount / 100}`;
+
+        // DESKTOP ROW
+        const tr = document.createElement("tr");
+        tr.className =
+          "border-b border-gray-100 hover:bg-gray-50/50 transition-colors";
         tr.innerHTML = `
               <td class="p-5 align-middle border-r border-gray-100">
-                 <div class="text-sm font-bold text-dark font-body">${new Date(order.created_at).toLocaleDateString()}</div>
+                 <div class="text-sm font-bold text-dark font-body">${dateFormatted}</div>
               </td>
               <td class="p-5 align-middle border-r border-gray-100">
                  <div class="text-sm text-dark font-body font-bold">${order.sender_email}</div>
@@ -147,17 +174,66 @@ const title = "Gestione Gift Card | Pachamama Admin";
                  <div class="text-sm font-bold text-dark font-body break-all">${order.receiver_name}</div>
               </td>
               <td class="p-5 align-middle text-center border-r border-gray-100">
-                 <div class="text-xl font-display font-bold text-dark">€${order.amount / 100}</div>
+                 <div class="text-xl font-display font-bold text-dark">${amountFormatted}</div>
+              </td>
+              <td class="p-5 align-middle text-center border-r border-gray-100">
+                 <a href="/area-cliente/scarica-gift-card?id=${order.id}" target="_blank" class="text-[10px] font-bold text-gold bg-dark px-3 py-2 rounded uppercase tracking-tighter hover:bg-gold hover:text-dark transition-all inline-block">
+                    Vedi Card
+                 </a>
               </td>
               <td class="p-5 align-middle w-64 bg-gray-50/30">
-                 <select id="status-${order.id}" onchange="window.updateStatus('${order.id}', this.value)" class="w-full text-xs font-bold text-dark appearance-auto border border-gray-200 rounded-lg p-3 bg-white cursor-pointer shadow-sm transition-colors focus:border-gold focus:outline-none hover:border-gray-300">
+                 <select onchange="window.updateStatus('${order.id}', this.value)" class="w-full text-xs font-bold text-dark appearance-auto border border-gray-200 rounded-lg p-3 bg-white cursor-pointer shadow-sm focus:border-gold focus:outline-none">
                     <option value="pending" ${isPending ? "selected" : ""}>Da Pagare (Pending)</option>
-                    <option value="processing" ${isProcessing ? "selected" : ""} class="font-bold text-gold">Verifica in Corso</option>
-                    <option value="confirmed" ${isConfirmed ? "selected" : ""} class="font-bold text-green-600">Confermato (Attivo)</option>
+                    <option value="processing" ${isProcessing ? "selected" : ""}>Verifica in Corso</option>
+                    <option value="confirmed" ${isConfirmed ? "selected" : ""}>Confermato (Attivo)</option>
                  </select>
               </td>
            `;
         tbody.appendChild(tr);
+
+        // MOBILE CARD
+        const card = document.createElement("div");
+        card.className =
+          "bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-4";
+        card.innerHTML = `
+          <div class="flex justify-between items-start border-b border-gray-50 pb-3">
+             <div>
+                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mb-1">Data Ordine</p>
+                <p class="text-xs font-bold text-dark">${dateFormatted}</p>
+             </div>
+             <div class="text-right">
+                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mb-1">Importo</p>
+                <p class="text-lg font-display font-bold text-dark text-gold">${amountFormatted}</p>
+             </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3">
+             <div>
+                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mb-0.5">Acquirente</p>
+                <p class="text-xs font-bold text-dark break-all">${order.sender_email}</p>
+             </div>
+             <div>
+                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mb-0.5">Destinatario</p>
+                <p class="text-xs font-bold text-dark">${order.receiver_name}</p>
+             </div>
+          </div>
+
+          <div class="flex gap-2 pt-2">
+            <a href="/area-cliente/scarica-gift-card?id=${order.id}" target="_blank" class="flex-1 text-center text-[10px] font-bold text-gold bg-dark py-3 rounded uppercase tracking-widest">
+               Vedi Card
+            </a>
+          </div>
+
+          <div class="pt-2 border-t border-gray-50">
+             <p class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mb-2">Stato Ordine</p>
+             <select onchange="window.updateStatus('${order.id}', this.value)" class="w-full text-xs font-bold text-dark border border-gray-200 rounded-lg p-3 bg-gray-50 focus:border-gold">
+                <option value="pending" ${isPending ? "selected" : ""}>Da Pagare (Pending)</option>
+                <option value="processing" ${isProcessing ? "selected" : ""}>Verifica in Corso</option>
+                <option value="confirmed" ${isConfirmed ? "selected" : ""}>Confermato (Attivo)</option>
+             </select>
+          </div>
+        `;
+        mobileContainer.appendChild(card);
       });
     }
 

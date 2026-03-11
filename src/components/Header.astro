@@ -42,6 +42,7 @@
       class="text-white hover:text-gold transition-colors font-display text-lg uppercase tracking-widest"
       >Gift Card</a
     >
+
     <a
       href="https://drive.google.com/file/d/1wiAKFkQrQeHpsyeKyM0Yoo6uVNl5SqIy/view"
       target="_blank"
@@ -60,6 +61,11 @@
       id="user-nav-desktop"
       class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10"
     >
+      <a
+        href="/area-cliente"
+        class="bg-white/10 text-white text-[10px] font-bold py-2 px-4 rounded border border-white/20 uppercase tracking-widest hover:bg-gold hover:text-dark transition-all hidden"
+        id="nav-orders-desktop">Area Cliente</a
+      >
       <button
         id="nav-logout"
         class="bg-white/5 hover:bg-red-500/20 text-white text-[10px] font-bold py-2 px-4 rounded border border-white/10 uppercase tracking-widest transition-all hidden"
@@ -153,6 +159,11 @@
       class="text-2xl font-display uppercase tracking-widest hover:text-gold"
       >Gift Card</a
     >
+    <a
+      href="/area-cliente"
+      class="text-2xl font-display uppercase tracking-widest hover:text-gold hidden"
+      id="mobile-nav-orders">Area Cliente</a
+    >
 
     <div class="h-px bg-white/10 my-4"></div>
 
@@ -180,10 +191,12 @@
 
   const desktopLogout = document.getElementById("nav-logout");
   const desktopLogin = document.getElementById("nav-login");
+  const desktopOrders = document.getElementById("nav-orders-desktop");
 
   const mobileIcon = document.getElementById("nav-area-cliente-mobile-icon");
   const mobileLogout = document.getElementById("mobile-nav-logout");
   const mobileLogin = document.getElementById("mobile-nav-login");
+  const mobileOrders = document.getElementById("mobile-nav-orders");
 
   async function updateAuthUI() {
     // 1. Verificación rápida local (Síncrona para velocidad)
@@ -199,17 +212,21 @@
     if (isLoggedIn) {
       desktopLogout?.classList.remove("hidden");
       desktopLogin?.classList.add("hidden");
+      desktopOrders?.classList.remove("hidden");
 
       mobileIcon?.classList.remove("hidden");
       mobileLogout?.classList.remove("hidden");
       mobileLogin?.classList.add("hidden");
+      mobileOrders?.classList.remove("hidden");
     } else {
       desktopLogout?.classList.add("hidden");
       desktopLogin?.classList.remove("hidden");
+      desktopOrders?.classList.add("hidden");
 
       mobileIcon?.classList.add("hidden");
       mobileLogout?.classList.add("hidden");
       mobileLogin?.classList.remove("hidden");
+      mobileOrders?.classList.add("hidden");
     }
   }
 
